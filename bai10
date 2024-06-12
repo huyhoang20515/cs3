@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+
+namespace QuanLySinhVien
+{
+    struct SinhVien
+    {
+        public string Ten;
+        public double Diem;
+
+        public SinhVien(string ten, double diem)
+        {
+            Ten = ten;
+            Diem = diem;
+        }
+
+        public void HienThiThongTin()
+        {
+            Console.WriteLine($"Ten: {Ten}, Diem: {Diem}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Nhap so luong sinh vien: ");
+            int n = int.Parse(Console.ReadLine());
+
+            List<SinhVien> danhSachSinhVien = new List<SinhVien>();
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine($"Nhap thong tin sinh vien thu {i + 1}:");
+
+                Console.Write("Ten: ");
+                string ten = Console.ReadLine();
+
+                Console.Write("Diem: ");
+                double diem = double.Parse(Console.ReadLine());
+
+                SinhVien sv = new SinhVien(ten, diem);
+                danhSachSinhVien.Add(sv);
+            }
+
+            Console.WriteLine("\nThong tin cac sinh vien:");
+            foreach (SinhVien sv in danhSachSinhVien)
+            {
+                sv.HienThiThongTin();
+            }
+
+            double diemTrungBinh = TinhDiemTrungBinh(danhSachSinhVien);
+            Console.WriteLine($"\nDiem trung binh cua ca lop: {diemTrungBinh:F2}");
+        }
+
+        static double TinhDiemTrungBinh(List<SinhVien> danhSachSinhVien)
+        {
+            double tongDiem = 0;
+            foreach (SinhVien sv in danhSachSinhVien)
+            {
+                tongDiem += sv.Diem;
+            }
+
+            return tongDiem / danhSachSinhVien.Count;
+        }
+    }
+}
