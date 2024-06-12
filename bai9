@@ -1,0 +1,74 @@
+using System;
+
+namespace XuLyChuoiKyTu
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("\nMenu:");
+                Console.WriteLine("1. Dao nguoc chuoi ky tu");
+                Console.WriteLine("2. Dem so luong tu trong chuoi ky tu");
+                Console.WriteLine("3. Thoat");
+                Console.Write("Chon mot tuy chon (1-3): ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        DaoNguocChuoi();
+                        break;
+                    case "2":
+                        DemSoLuongTu();
+                        break;
+                    case "3":
+                        Console.WriteLine("Thoat chuong trinh.");
+                        return;
+                    default:
+                        Console.WriteLine("Lua chon khong hop le. Vui long chon mot tuy chon hop le.");
+                        break;
+                }
+            }
+        }
+
+        static void DaoNguocChuoi()
+        {
+            Console.Write("Nhap vao mot chuoi ky tu: ");
+            string userInput = Console.ReadLine();
+
+            string reversedString = DaoNguocChuoi(userInput);
+
+            Console.WriteLine("Chuoi dao nguoc: " + reversedString);
+        }
+
+        static string DaoNguocChuoi(string input)
+        {
+            char[] charArray = input.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        static void DemSoLuongTu()
+        {
+            Console.Write("Nhap vao mot chuoi ky tu: ");
+            string userInput = Console.ReadLine();
+
+            int wordCount = DemSoLuongTu(userInput);
+
+            Console.WriteLine("So luong tu trong chuoi: " + wordCount);
+        }
+
+        static int DemSoLuongTu(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return 0;
+            }
+
+            string[] words = input.Split(new char[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return words.Length;
+        }
+    }
+}
