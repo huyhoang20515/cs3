@@ -1,0 +1,43 @@
+using System;
+using System.IO;
+
+namespace GhiVaDocFileVanBan
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Nhập tên tệp từ bàn phím
+            Console.Write("Nhap ten file (bao gom duoi mo rong, vi du: file.txt): ");
+            string fileName = Console.ReadLine();
+
+            // Nhập nội dung từ bàn phím
+            Console.WriteLine("Nhap noi dung can ghi vao file:");
+            string content = Console.ReadLine();
+
+            // Ghi nội dung vào tệp văn bản
+            try
+            {
+                File.WriteAllText(fileName, content);
+                Console.WriteLine($"Da ghi noi dung vao tep {fileName} thanh cong.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Co loi xay ra khi ghi tep: {ex.Message}");
+                return;
+            }
+
+            // Đọc nội dung từ tệp và hiển thị lên màn hình
+            try
+            {
+                string fileContent = File.ReadAllText(fileName);
+                Console.WriteLine("\nNoi dung doc tu file:");
+                Console.WriteLine(fileContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Co loi xay ra khi doc tep: {ex.Message}");
+            }
+        }
+    }
+}
