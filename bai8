@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace ConsoleApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("\nMenu:");
+                Console.WriteLine("1. Hien thi bang ma ASCII");
+                Console.WriteLine("2. Hien thi bang ma UTF-8 (ma trang 65001)");
+                Console.WriteLine("3. Phat tieng beep khi nhan phim space");
+                Console.WriteLine("4. Dem so lan xuat hien cua moi ky tu trong chuoi");
+                Console.WriteLine("5. Thoat");
+                Console.Write("Chon mot tuy chon (1-5): ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        HienThiBangMaAscii();
+                        break;
+                    case "2":
+                        HienThiBangMaUtf8();
+                        break;
+                    case "3":
+                        PhatTiengBeepKhiNhanPhimSpace();
+                        break;
+                    case "4":
+                        DemSoLanXuatHienKyTuTrongChuoi();
+                        break;
+                    case "5":
+                        Console.WriteLine("Thoat chuong trinh.");
+                        return;
+                    default:
+                        Console.WriteLine("Lua chon khong hop le. Vui long chon mot tuy chon hop le.");
+                        break;
+                }
+            }
+        }
+
+        static void HienThiBangMaAscii()
+        {
+            Console.WriteLine("Bang ma ASCII");
+            Console.WriteLine("-------------");
+            for (int i = 32; i < 128; i++)
+            {
+                Console.WriteLine($"{i,3}: {(char)i}");
+            }
+        }
+
+        static void HienThiBangMaUtf8()
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.WriteLine("Bang ma UTF-8 (Ma trang 65001)");
+            Console.WriteLine("-----------------------------");
+            for (int i = 32; i < 128; i++)
+            {
+                Console.WriteLine($"U+{i:X4}: {(char)i}");
+            }
+            for (int i = 128; i < 256; i++)
+            {
+                Console.WriteLine($"U+{i:X4}: {(char)i}");
+            }
+        }
+
+        static void PhatTiengBeepKhiNhanPhimSpace()
+        {
+            Console.WriteLine("Nhan 'space' de nghe tieng beep. Nhan 'esc' de thoat.");
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(intercept: true).Key;
+                    if (key == ConsoleKey.Spacebar)
+                    {
+                        Console.Beep();
+                    }
+                    else if (key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+        static void DemSoLanXuatHienKyTuTrongChuoi()
+        {
+            Console.Write("Nhap vao mot chuoi: ");
+            string userInput = Console.ReadLine();
+            Dictionary<char, int> characterCount = new Dictionary<char, int>();
+
+            foreach (char c in userInput)
+            {
+                if (characterCount.ContainsKey(c))
+                {
+                    characterCount[c]++;
+                }
+                else
+                {
+                    characterCount[c] = 1;
+                }
+            }
+
+            Console.WriteLine("So lan xuat hien cua cac ky tu:");
+            foreach (var item in characterCount)
+            {
+                Console.WriteLine($"'{item.Key}': {item.Value}");
+            }
+        }
+    }
+}
