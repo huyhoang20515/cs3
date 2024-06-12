@@ -7,15 +7,13 @@ namespace GhiVaDocFileVanBan
     {
         static void Main(string[] args)
         {
-            // Nhập tên tệp từ bàn phím
+
             Console.Write("Nhap ten file (bao gom duoi mo rong, vi du: file.txt): ");
             string fileName = Console.ReadLine();
 
-            // Nhập nội dung từ bàn phím
             Console.WriteLine("Nhap noi dung can ghi vao file:");
             string content = Console.ReadLine();
 
-            // Ghi nội dung vào tệp văn bản
             try
             {
                 File.WriteAllText(fileName, content);
@@ -27,7 +25,6 @@ namespace GhiVaDocFileVanBan
                 return;
             }
 
-            // Đọc nội dung từ tệp và hiển thị lên màn hình
             try
             {
                 string fileContent = File.ReadAllText(fileName);
